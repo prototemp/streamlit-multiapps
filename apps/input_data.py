@@ -18,7 +18,7 @@ def app():
     hasil = []
 
     st.title('KUESIONER PENELITIAN PENILAIAN KINERJA DOSEN PRODI INFORMATIKA ')
-    dosen = ["Yulianti, S.Kom, MMSI.","Morteza Muthahhari, S.Kom., M.T.I.","Tursina, S.T., M.Cs.","Novi Safriadi, S.T., M.T.","Haried Novriando, S.Kom., M.Eng.","Helen Sasty Pratiwi,ST, M.Eng","Helfi Nasution, S.Kom, M.Cs"]
+    dosen = ["DOSEN-01","DOSEN-02","DOSEN-03","DOSEN-04","DOSEN-05","DOSEN-06","DOSEN-07",]
 
     for i in dosen:
         st.title(i)
@@ -87,6 +87,7 @@ def app():
         else : hasil.append("Kinerja Buruk")
     ranks = np.array(res).argsort()[::-1].argsort()
     st.title("Hasil")
+    st.write("Hasil dari penelitian ini berupa keputusan dosen yang memiliki kinerja baik dan dosen memiliki kinerja buruk, dimana nilai ≥ 0,60 memiliki predikat kinerja baik dan < 60 memiliki kinerja buruk, dan dilakukan juga peringkat berdasarkan nilai preferensi dari setiap dosen.")
     pref = pd.DataFrame({"Dosen":dosen,"Preferensi":res,"Hasil":hasil, "Peringkat": ranks+1})
     st.write(pref)
     
