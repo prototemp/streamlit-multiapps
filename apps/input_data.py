@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 
 def app():
     nilai = []
@@ -14,9 +15,10 @@ def app():
     k4_norm = []
     k5_norm = []
     res = []
+    hasil = []
 
     st.title('KUESIONER PENELITIAN PENILAIAN KINERJA DOSEN PRODI INFORMATIKA ')
-    dosen = ["Haried Novriando, S.Kom., M.Eng.","Helfi Nasution, S.Kom, M.Cs","Morteza Muthahhari, S.Kom., M.T.I.","Novi Safriadi, S.T., M.T.","Helen Sasty Pratiwi,ST, M.Eng","Tursina, S.T., M.Cs.","Yulianti, S.Kom, MMSI."]
+    dosen = ["Yulianti, S.Kom, MMSI.","Morteza Muthahhari, S.Kom., M.T.I.","Tursina, S.T., M.Cs.","Novi Safriadi, S.T., M.T.","Haried Novriando, S.Kom., M.Eng.","Helen Sasty Pratiwi,ST, M.Eng","Helfi Nasution, S.Kom, M.Cs"]
 
     for i in dosen:
         st.title(i)
@@ -41,7 +43,7 @@ def app():
         k5_arr.append(k5)
       
     st.title("Data Dosen")
-    df = pd.DataFrame({"K1": k1_arr, "K2": k2_arr, "K3": k3_arr, "K4": k4_arr, "K5": k5_arr})
+    df = pd.DataFrame({"Dosen":dosen, "K1": k1_arr, "K2": k2_arr, "K3": k3_arr, "K4": k4_arr, "K5": k5_arr})
     st.write(df)
 
     k1_min = min(k1_arr)
@@ -75,13 +77,16 @@ def app():
         k5_norm.append((i-k5_min)/(k5_max-k5_min))
     
     st.title("Normalisasi Matriks")
-    df_norm = pd.DataFrame({"K1": k1_norm, "K2": k2_norm, "K3": k3_norm, "K4": k4_norm, "K5": k5_norm})
+    df_norm = pd.DataFrame({"Dosen":dosen,"K1": k1_norm, "K2": k2_norm, "K3": k3_norm, "K4": k4_norm, "K5": k5_norm})
     st.write(df_norm)
 
     for i in range(7):
-        res.append(((0.30*k1_norm[i])+(0.15*k2_norm[i])+(0.15*k3_norm[i])+(0.20*k4_norm[i])+(0.20*k5_norm[i])))
-    
+        sum = (0.30*k1_norm[i])+(0.15*k2_norm[i])+(0.15*k3_norm[i])+(0.20*k4_norm[i])+(0.20*k5_norm[i])
+        res.append(sum)
+        if (sum >= 0.60): hasil.append("Kinerja Baik")
+        else : hasil.append("Kinerja Buruk")
+    ranks = np.array(res).argsort()[::-1].argsort()
     st.title("Hasil")
-    pref = pd.DataFrame({"Preferensi":res})
+    pref = pd.DataFrame({"Dosen":dosen,"Preferensi":res,"Hasil":hasil, "Peringkat": ranks+1})
     st.write(pref)
     
