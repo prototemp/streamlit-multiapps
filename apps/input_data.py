@@ -17,7 +17,7 @@ def app():
     res = []
     hasil = []
 
-    st.title('KUESIONER PENELITIAN PENILAIAN KINERJA DOSEN PRODI INFORMATIKA ')
+    st.title("SISTEM PENDUKUNG KEPUTUSAN PENILAIAN KINERJA DOSEN")
     dosen = ["DOSEN-01","DOSEN-02","DOSEN-03","DOSEN-04","DOSEN-05","DOSEN-06","DOSEN-07",]
 
     for i in dosen:
